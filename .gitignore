@@ -1,2 +1,3 @@
-uploads/
-tls/
+uploads/*
+tls/*
+node_modules/*
