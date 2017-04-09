@@ -53,5 +53,5 @@ app.post('/upload', function(req, res){
 var httpServer = http.createServer(app);
 
 httpServer.listen(8080, function(){
-  console.log('Server listening on port 80');
+  console.log('Server listening on port 8080');
 });
