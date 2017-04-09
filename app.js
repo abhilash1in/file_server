@@ -5,23 +5,10 @@ var formidable = require('formidable');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var privateKey  = fs.readFileSync('./tls/key.pem', 'utf8');
-var certificate = fs.readFileSync('./tls/cert.pem', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
-
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'uploads')));  
+app.use(express.static(path.join(__dirname, 'uploads')));
 
-function requireHTTPS(req, res, next) {
-    if (!req.secure) {
-        //FYI this should work for local development as well
-        return res.redirect('https://' + req.get('host') + req.url);
-    }
-    next();
-}
-
-app.use(requireHTTPS);
 
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, 'views/index.html'));
@@ -64,11 +51,7 @@ app.post('/upload', function(req, res){
 //});
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(80, function(){
+httpServer.listen(8080, function(){
   console.log('Server listening on port 80');
-});
-httpsServer.listen(443,function(){
-  console.log('Server listening on port 443');
 });
